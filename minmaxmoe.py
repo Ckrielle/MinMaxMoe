@@ -99,7 +99,6 @@ def main(pi, pj):
         print("Hello there. Do you wish to play?")
         ans = input("[y/n]: ")
     
-     
     
     if ans == 'n':
         quit()
