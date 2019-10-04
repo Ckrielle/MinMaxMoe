@@ -99,11 +99,13 @@ def main(pi, pj):
         print("Hello there. Do you wish to play?")
         ans = input("[y/n]: ")
     
-    #print("The score is {}-{}".format(pi, pj)) 
+     
     
     if ans == 'n':
         quit()
-    #This is where the introduction will be
+    
+    if pi != 0 or pj != 0:
+        
     
     og = [
         [0, 0, 0], 
