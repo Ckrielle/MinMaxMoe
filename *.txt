@@ -1,1 +1,0 @@
-A 3x3 (soon nxn) game where players choose vertical or horizontal lines and have to make the highest sum.
