@@ -1,17 +1,17 @@
-import sys, random
+import sys, random, json
 
 def quit():
     print("Ok, bye bye")
     sys.exit(0)
 
 
-def bubbleSort(arr):
+"""def bubbleSort(arr):
    
     for i in range(len(arr)):
         for j in range(0, n-i-1):
             if arr[j] > arr[j+1] :
                 arr[j], arr[j+1] = arr[j+1], arr[j]
-
+"""
 
 def rand():
     flip = ["Heads", "Tails"]
@@ -39,8 +39,8 @@ def win(end_state, pi, pj):
     
     print("The sums of the vertical lines are {} while the sums of the horizontal lines are {}\n".format(listi, listj))
     
-    bubbleSort(listi)
-    bubbleSort(listj)
+    listi.sort()
+    listj.sort()
     
     maxpos = ''
     for i in range(3):
@@ -65,6 +65,18 @@ def printArray(args):
 
 def calc(numbers, board):
     
+    coordinates = {
+        "1": [1, 1],
+        "2": [1, 2],
+        "3": [1, 3],
+        "4": [2, 1],
+        "5": [2, 2],
+        "6": [2, 3],
+        "7": [3, 1],
+        "8": [3, 2],
+        "9": [3, 3],
+    }
+    
     print(("Choose a number from these {}").format(numbers))
     ans = int(input("> "))
     
@@ -74,13 +86,18 @@ def calc(numbers, board):
             printArray([str(x) for x in row])
         calc(numbers, board)
     
-    print("Choose the x coordinate from 1 to 3")
+    #print(json.dumps(coordinates.keys()))
+    print("Choose one of these positions: " + ','.join([k for k in coordinates.keys()]))
+    point = input("> ")
+    """print("Choose the x coordinate from 1 to 3")
     x = int(input("> "))
     
     print("And the y coordinate from 1 to 3")
-    y = int(input("> "))
-    
+    y = int(input("> "))"""
+    print(coordinates[point]) 
     numbers.remove(ans)
+    
+    x, y = coordinates[point]
     
     if board[x - 1][y - 1] == 0:
         board[x - 1][y - 1] = ans
@@ -96,7 +113,16 @@ def calc(numbers, board):
     
     if not numbers:
         return 0
-              
+
+"""def generator(n, m):
+    
+    og = list()
+    for i in range(n):
+        for j in range(m):
+            og.append(0)
+    
+    return og"""
+
 
 def main(pi, pj):
     
@@ -114,14 +140,15 @@ def main(pi, pj):
     print("""The rules are simple. Two players are assigned either the vertical or 
         the horizontal arrays of a 3x3 grid and choose a number from 1-9 to place
         in the grid. Once all numbers have been placed, the sum of all horizontal and 
-        vertical arrays is counted, and the player with the highest sum wins.""")
+        vertical arrays is counted, and the player with the highest sum wins.\n""")
         
+    n, m = map(int, input("Enter the grids dimensions: ").split(" "))
     og = [
-        [0, 0, 0], 
-        [0, 0, 0], 
-        [0, 0, 0]
-    ]
-    options = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+   [0, 0, 0],
+   [0, 0, 0],
+   [0, 0, 0],
+     ]#generator(n, m)
+    options = [int(x) for x in range(1, (n * m) + 1)]
     
     print("Should the players choose the order and arrays or should the programm assign them at random?")
     ch = input("[c/r]: ")
@@ -129,11 +156,11 @@ def main(pi, pj):
     if ch == "r":
         print(rand())
     
+    input("Press any key to continue")
+
     while True:
         i = calc(options, og)
         if i == 0:
             win(og, pi, pj)
 
-pi = 0
-pj = 0
-main(pi, pj)
+main(0, 0)
